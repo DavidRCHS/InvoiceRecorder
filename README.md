@@ -81,4 +81,3 @@ La API estará disponible en: http://localhost:8080/api/v1
 
 Para visualizar los correos enviados por la aplicación, puedes acceder a la interfaz de MailHog desde tu navegador
 en: http://localhost:8025
-# InvoiceRecorder
