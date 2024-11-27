@@ -71,6 +71,18 @@ php artisan migrate
 php artisan db:seed
 ```
 
+9. Verificar que los procesos en segundo plano se ejecuten correctamente:
+
+```bash
+artisan queue:work
+```
+
+10. Procesar los vouchers existentes en la base de datos:
+
+```bash
+php artisan app:process-existing-vouchers
+```
+
 **¡Y listo!** Ahora puedes empezar a desarrollar.
 
 ## Uso
@@ -81,3 +93,7 @@ La API estará disponible en: http://localhost:8080/api/v1
 
 Para visualizar los correos enviados por la aplicación, puedes acceder a la interfaz de MailHog desde tu navegador
 en: http://localhost:8025
+
+### Colección de Postman
+Puedes probar la API con la colección de Postman disponible en el siguiente enlace:
+🔗 https://github.com/DavidRCHS/InvoiceRecorder/blob/main/InvoiceRecorder.postman_collection.json
