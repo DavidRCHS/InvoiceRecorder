@@ -118,10 +118,10 @@ class VoucherService
         $xml = new SimpleXMLElement($voucher->xml_content);
 
         // Extract additional fields
-        $series = (string) $xml->xpath('//cbc:ID')[0]; // Replace with correct path for "series"
-        $number = (string) $xml->xpath('//cbc:InvoiceNumber')[0]; // Replace with correct path for "number"
-        $voucherType = (string) $xml->xpath('//cbc:InvoiceTypeCode')[0]; // Replace with correct path for "voucher_type"
-        $currency = (string) $xml->xpath('//cbc:DocumentCurrencyCode')[0]; // Replace with correct path for "currency"
+        $id = (string) $xml->xpath('//cbc:ID')[0];
+        [$series, $number] = explode('-', $id);
+        $voucherType = (string) $xml->xpath('//cbc:InvoiceTypeCode ')[0] ?? null;
+        $currency = (string) $xml->xpath('//cbc:DocumentCurrencyCode')[0] ?? null;
 
         // Update voucher with additional fields
         $voucher->update([
