@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "efb97114-42de-4c09-a423-123cf61ef3ed",
+		"name": "InvoiceRecorder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16628954",
+		"_collection_link": "https://speeding-zodiac-255198.postman.co/workspace/61a6d20b-e2e5-4406-82d6-67d5f799e7ff/collection/16628954-efb97114-42de-4c09-a423-123cf61ef3ed?action=share&source=collection_link&creator=16628954"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Extraer el token de la respuesta JSON\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"// Verifica si existe el token y lo guarda en una variable global\r",
+							"if (response.data && response.data.token) {\r",
+							"    pm.collectionVariables.set(\"authToken\", response.data.token);\r",
+							"    console.log(\"Token guardado exitosamente:\", response.data.token);\r",
+							"} else {\r",
+							"    console.error(\"El token no se encontró en la respuesta.\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"john.doe@acme.test\",\r\n  \"password\": \"ziD9ZoUG\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Procesar Vouchers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Bearer {{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files[]",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/vouchers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"vouchers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vouchers Sumary",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Bearer {{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files[]",
+							"type": "file",
+							"src": [
+								"/C:/Users/david/Downloads/F003-1.xml",
+								"/C:/Users/david/Downloads/B001-8.xml",
+								"/C:/Users/david/Downloads/B005-13.xml"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/vouchers/summary",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"vouchers",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vouchers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Bearer {{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files[]",
+							"type": "file",
+							"src": [
+								"/C:/Users/david/Downloads/F003-1.xml",
+								"/C:/Users/david/Downloads/B001-8.xml",
+								"/C:/Users/david/Downloads/B005-13.xml"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/vouchers?start_date=2024-01-01&end_date=2024-12-31&series=F001&number=123&voucher_type=01&currency=USD&page=1&paginate=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"vouchers"
+					],
+					"query": [
+						{
+							"key": "start_date",
+							"value": "2024-01-01"
+						},
+						{
+							"key": "end_date",
+							"value": "2024-12-31"
+						},
+						{
+							"key": "series",
+							"value": "F001"
+						},
+						{
+							"key": "number",
+							"value": "123"
+						},
+						{
+							"key": "voucher_type",
+							"value": "01"
+						},
+						{
+							"key": "currency",
+							"value": "USD"
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "paginate",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Vouchers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Bearer {{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/vouchers/9d9646d3-9f3a-4a23-860e-ab820b2d531b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"vouchers",
+						"9d9646d3-9f3a-4a23-860e-ab820b2d531b"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
